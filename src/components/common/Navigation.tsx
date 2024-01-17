@@ -5,19 +5,22 @@ import Navbar from "react-bootstrap/Navbar";
 
 export const Navigation: React.FC<unknown> = () => {
   return (
-    <Navbar bg="dark" data-bs-theme="dark">
+    <Navbar expand="md" className="bg-body-tertiary">
       <Container>
-        <Nav className="me-auto">
-          <NavLink className="nav-link" to={"/home"}>
-            Home
-          </NavLink>
-          <NavLink className="nav-link" to={"/jenn"}>
-            Jenn
-          </NavLink>
-          <NavLink className="nav-link" to={"/sophia"}>
-            Sophia
-          </NavLink>
-        </Nav>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <NavLink className="nav-link" to={"/home"}>
+              Home
+            </NavLink>
+            <NavLink className="nav-link" to={"/grid"}>
+              Grid
+            </NavLink>
+            <NavLink className="nav-link" to={"/form"}>
+              Form
+            </NavLink>
+          </Nav>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );

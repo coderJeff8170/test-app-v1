@@ -10,7 +10,7 @@ export const Root: React.FC<unknown> = () => {
     <Container fluid>
       <Row>
         <Col>
-          <Header title={""} />
+          <Header title="Jeff's Test App" />
         </Col>
       </Row>
       <Row>

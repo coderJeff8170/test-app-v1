@@ -2,10 +2,11 @@
 type HeaderType = {
     title: string;
 }
-export const Header: React.FC<HeaderType> = () => {
+export const Header: React.FC<HeaderType> = (props: HeaderType) => {
+    const { title } = props;
     return (
         <>
-        <h1>This is the Header Component</h1>
+        <h1>{title}</h1>
         </>
     )
 }

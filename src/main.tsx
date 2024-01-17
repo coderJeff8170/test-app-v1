@@ -1,14 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-// import App from './App.tsx'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { HomePage } from "../src/routes/HomePage";
 
 
 
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Root } from "./routes/Root";
+import { GridPage } from "./routes/GridPage";
+import { FormPage } from "./routes/FormPage";
 
 const router = createBrowserRouter([
   {
@@ -18,15 +19,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/home",
-        element: <h1>Jeff</h1>,
+        element: <HomePage />,
       },
       {
-        path: "/jenn",
-        element: <h1>Jenn</h1>,
+        path: "/grid",
+        element: <GridPage />,
       },
       {
-        path: "/sophia",
-        element: <h1>Sophia</h1>,
+        path: "/form",
+        element: <FormPage />,
       },
     ],
   },
