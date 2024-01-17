@@ -5,6 +5,15 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  ag-grid-community:
+    specifier: ^31.0.2
+    version: 31.0.2
+  ag-grid-enterprise:
+    specifier: ^31.0.2
+    version: 31.0.2
+  ag-grid-react:
+    specifier: ^31.0.2
+    version: 31.0.2(react-dom@18.2.0)(react@18.2.0)
   bootstrap:
     specifier: ^5.3.2
     version: 5.3.2(@popperjs/core@2.11.8)
@@ -997,6 +1006,28 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
     dev: true
+
+  /ag-grid-community@31.0.2:
+    resolution: {integrity: sha512-gxUdHeAZUV2TDHqnDax5QSQgUxIvJ1zaFxUuPzcfiiPwbN6btz6kxg/KNrDfEjQi70JBfJV46BMR9KTG6iAVmQ==}
+    dev: false
+
+  /ag-grid-enterprise@31.0.2:
+    resolution: {integrity: sha512-KVtlvc8kcZVs4nRozUM0Ir7sd1W8I0JqSRSRhScob5lEE5aQnuYfy7LF8ZSic/HYLqZMBMDDsVfX8EfjkWfLlw==}
+    dependencies:
+      ag-grid-community: 31.0.2
+    dev: false
+
+  /ag-grid-react@31.0.2(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-QAC5Rsr4AaE+vCafyrnEJa7JWcmoXNzJyzZmln0T6QCLG43IuT2hZ3ULmce/IqwP2Kxf+B4hVJOVitVT9SdXkg==}
+    peerDependencies:
+      react: ^16.3.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.3.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      ag-grid-community: 31.0.2
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
 
   /ajv@6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}

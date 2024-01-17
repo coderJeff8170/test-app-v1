@@ -1,4 +1,3 @@
-import { Header } from "../components/common/Header";
 import { Outlet } from "react-router-dom";
 import { Navigation } from "../components/common/Navigation";
 import Container from "react-bootstrap/Container";
@@ -8,11 +7,6 @@ import Col from "react-bootstrap/Col";
 export const Root: React.FC<unknown> = () => {
   return (
     <Container fluid>
-      <Row>
-        <Col>
-          <Header title="Jeff's Test App" />
-        </Col>
-      </Row>
       <Row>
         <Col>
           <Navigation/>
