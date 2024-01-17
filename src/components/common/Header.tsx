@@ -5,7 +5,7 @@ type HeaderType = {
 export const Header: React.FC<HeaderType> = () => {
     return (
         <>
-        <p>This is the Header Component</p>
+        <h1>This is the Header Component</h1>
         </>
     )
 }
