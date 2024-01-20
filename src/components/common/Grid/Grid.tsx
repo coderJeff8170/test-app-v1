@@ -19,17 +19,11 @@ interface IRow {
   successful: boolean;
 }
 
-// Create new GridExample component
 export const GridExample = () => {
-  // Row Data: The data to be displayed.
+
   const [rowData, setRowData] = useState<IRow[]>([]);
-  const gridRef: MutableRefObject<unknown> = useRef<unknown>(); //React.RefObject<{}>
+  const gridRef: MutableRefObject<unknown> = useRef<unknown>();
 
-  // useEffect(() => {
-  //   console.log(gridRef);
-  // }, [rowData]);
-
-  // Column Definitions: Defines & controls grid columns.
   const [colDefs] = useState<ColDef[]>([
     { field: 'mission' },
     { field: 'company' },
@@ -40,50 +34,27 @@ export const GridExample = () => {
     { field: 'rocket' },
   ]);
 
-  // const testComponent = <TestComponent gridRef={gridRef} />;
-
   const statusBar = useMemo<{
     statusPanels: StatusPanelDef[];
   }>(() => {
     return {
       statusPanels: [
         {
-          // statusPanel: () => <TestComponent gridRef={gridRef} />,
           statusPanel: TestComponent,
           align: 'left',
         },
-        // {
-        //   statusPanel: ClickableStatusBarComponent,
-        //   key: 'statusBarCompKey',
-        // },
-        // {
-        //   statusPanel: 'agAggregationComponent',
-        //   statusPanelParams: {
-        //     aggFuncs: ['count', 'sum'],
-        //   },
-        // },
         { statusPanel: 'agTotalRowCountComponent' }, // Default status component
     { statusPanel: 'agFilteredRowCountComponent' }, // Default status component
-    //{ statusPanel: 'customStatusComponent' },
       ],
     };
   }, []);
 
-  // Fetch data & update rowData state
   useEffect(() => {
     fetch('https://www.ag-grid.com/example-assets/space-mission-data.json') // Fetch data from server
       .then((result) => result.json()) // Convert to JSON
       .then((rowData) => setRowData(rowData)); // Update state of `rowData`
   }, []);
 
-  // const statusPanel = [
-  //   { statusPanel: 'agTotalRowCountComponent' }, // Default status component
-  //   { statusPanel: 'agFilteredRowCountComponent' }, // Default status component
-  //   { statusPanel: 'customStatusComponent' }, // Your custom component
-  // ];
-
-
-  // Container: Defines the grid's theme & dimensions.
   return (
     <div
       className={"ag-theme-quartz"}
@@ -95,7 +66,6 @@ export const GridExample = () => {
         rowData={rowData} 
         columnDefs={colDefs}
         statusBar={statusBar}
-        // reactiveCustomComponents={true}
       />
     </div>
   );
