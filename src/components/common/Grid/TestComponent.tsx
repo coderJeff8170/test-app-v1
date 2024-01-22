@@ -3,53 +3,65 @@ import { CustomStatusPanelProps } from "ag-grid-react";
 import { useEffect, useState } from "react";
 
 const TestComponent = (props: CustomStatusPanelProps) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [currentRange, setCurrentRange] = useState([1, 10]);
+
+  const [totalPages] = useState(props?.api?.paginationGetTotalPages());
+  const [currentPage, setCurrentPage] = useState(0);
+  const [currentRange, setCurrentRange] = useState([0, 9]);
 
   const incrementRange = () => {
-    if (currentRange[1] === props.api.paginationGetTotalPages()) {
+    props.api.paginationGoToPage(currentRange[1]+1)
+    if (currentRange[1] === totalPages) {
       setCurrentRange([
         currentRange[0] + 10,
-        props.api.paginationGetTotalPages(),
+        totalPages,
       ]);
       return;
     }
-    //TODO if currentrange[1] is less than the total number of pages, do the following
     setCurrentRange([currentRange[0] + 10, currentRange[1] + 10]);
-    //TODO else if currentrange[1] is greater than the total number of pages, then we need to set currentRange[1] to the total number of pages
   };
 
   const decrementRange = () => {
     if (currentRange[0] === 1) return;
+    props.api.paginationGoToPage(currentRange[0]-1);
     setCurrentRange([currentRange[0] - 10, currentRange[1] - 10]);
   };
+
+  const incrementPage = () => {
+    if (currentPage === currentRange[1]) {
+      incrementRange();
+      return;
+    }
+    props.api.paginationGoToNextPage();
+  }
+
+  const decrementPage = () => {
+    props.api.paginationGoToPreviousPage();
+    if (currentPage === currentRange[0]) {
+      decrementRange();
+    }
+    
+  }
 
   useEffect(() => {
     const onPaginationChanged = () => {
       const currentPage = props.api.paginationGetCurrentPage();
-      console.log(`Current Page: ${currentPage}`);
-      setCurrentPage(currentPage + 1);
+      setCurrentPage(currentPage);
     };
-
     props.api.addEventListener("paginationChanged", onPaginationChanged);
-    // Cleanup: Remove the event listener when the component is unmounted
-    // if (!props.api.isDestroyed()) {
-    //     return () => {
-    //   props.api.removeEventListener('paginationChanged', onPaginationChanged);
-    // };}
   }, [props.api]);
 
   const renderItems = () => {
+    
     const items = [];
     for (let number = currentRange[0]; number <= currentRange[1]; number++) {
-      //if (number > props.api.paginationGetTotalPages()) break;
+      if (number >= totalPages) break;
       items.push(
         <Pagination.Item
           key={number}
-          onClick={() => props.api.paginationGoToPage(number - 1)}
-          active={number === currentPage}
+          onClick={() => props.api.paginationGoToPage(number)}
+          active={number === props.api.paginationGetCurrentPage()}
         >
-          {number}
+          {number+1}
         </Pagination.Item>
       );
     }
@@ -69,19 +81,20 @@ const TestComponent = (props: CustomStatusPanelProps) => {
       }}
     >
       <Pagination style={{ margin: "0" }}>
+        {/* TODO: onGoToLastPage needs to set the original range */}
         <Pagination.First onClick={() => props.api.paginationGoToFirstPage()} />
         <Pagination.Prev
-          onClick={() => props.api.paginationGoToPreviousPage()}
+          onClick={() => decrementPage()}
         />
         {currentRange[1] > 10 && (
           <Pagination.Ellipsis onClick={decrementRange} />
         )}
         {renderItems()}
-        {props.api.paginationGetTotalPages() > 10 && (
+        {!(totalPages >= currentRange[0] && totalPages <= currentRange[1]) && (
           <Pagination.Ellipsis onClick={incrementRange} />
         )}
-        {/* here, we'll need to only show when the number of pages is greater than 10 */}
-        <Pagination.Next onClick={() => props.api.paginationGoToNextPage()} />
+        <Pagination.Next onClick={() => incrementPage()} />
+        {/* TODO: onGoToLastPage needs to set the correct range */}
         <Pagination.Last onClick={() => props.api.paginationGoToLastPage()} />
       </Pagination>
     </div>

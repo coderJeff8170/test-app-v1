@@ -1,9 +1,9 @@
-import { ColDef, StatusPanelDef } from 'ag-grid-community';
+import { ColDef } from 'ag-grid-community';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 import 'ag-grid-enterprise';
 import { AgGridReact } from 'ag-grid-react';
-import React, { MutableRefObject, useEffect, useMemo, useRef, useState } from 'react';
+import React, { MutableRefObject, useEffect, useRef, useState } from 'react';
 import TestComponent from './TestComponent';
 
 
@@ -34,20 +34,19 @@ export const GridExample = () => {
     { field: 'rocket' },
   ]);
 
-  const statusBar = useMemo<{
-    statusPanels: StatusPanelDef[];
-  }>(() => {
+  const statusBar = () => {
     return {
       statusPanels: [
         {
           statusPanel: TestComponent,
+          key: 'testComponentKey',
           align: 'left',
         },
         { statusPanel: 'agTotalRowCountComponent' }, // Default status component
     { statusPanel: 'agFilteredRowCountComponent' }, // Default status component
       ],
     };
-  }, []);
+  };
 
   useEffect(() => {
     fetch('https://www.ag-grid.com/example-assets/space-mission-data.json') // Fetch data from server
@@ -65,7 +64,7 @@ export const GridExample = () => {
         pagination={true}
         rowData={rowData} 
         columnDefs={colDefs}
-        statusBar={statusBar}
+        statusBar={statusBar()}
       />
     </div>
   );
