@@ -5,6 +5,9 @@ import 'ag-grid-enterprise';
 import { AgGridReact } from 'ag-grid-react';
 import React, { MutableRefObject, useEffect, useRef, useState } from 'react';
 import PaginationBar from './PaginationBar';
+import PaginationPageSize from './PaginationPageSize';
+import PaginationRowSummary from './PaginationRowSummary';
+import PaginationPageSummary from './PaginationPageSummary';
 
 
 // Row Data Interface
@@ -37,13 +40,29 @@ export const GridExample = () => {
   const statusBar = () => {
     return {
       statusPanels: [
+        
         {
           statusPanel: PaginationBar,
           key: 'paginationBarKey',
           align: 'left',
         },
-        { statusPanel: 'agTotalRowCountComponent' }, // Default status component
-    { statusPanel: 'agFilteredRowCountComponent' }, // Default status component
+        {
+          statusPanel: PaginationPageSize,
+          key: 'paginationPageSizeKey',
+          align: 'right',
+        },
+        {
+          statusPanel: PaginationRowSummary,
+          key: 'paginationRowKey',
+          align: 'right',
+        },
+        {
+          statusPanel: PaginationPageSummary,
+          key: 'paginationPageKey',
+          align: 'right',
+        },
+        
+        // { statusPanel: 'agTotalRowCountComponent' }, // Default status component
       ],
     };
   };
