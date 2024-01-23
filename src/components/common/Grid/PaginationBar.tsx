@@ -2,7 +2,9 @@ import { Pagination } from "react-bootstrap";
 import { CustomStatusPanelProps } from "ag-grid-react";
 import { useEffect, useState } from "react";
 
-const TestComponent = (props: CustomStatusPanelProps) => {
+const PaginationBar = (props: CustomStatusPanelProps) => {
+console.log(props.api.paginationGetTotalPages());
+
 
   const [totalPages] = useState(props?.api?.paginationGetTotalPages());
   const INITIAL_RANGE = [0, totalPages > 9 ? 9 : totalPages];
@@ -103,4 +105,4 @@ const TestComponent = (props: CustomStatusPanelProps) => {
   );
 };
 
-export default TestComponent;
+export default PaginationBar;

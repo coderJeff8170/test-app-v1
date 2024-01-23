@@ -4,7 +4,7 @@ import 'ag-grid-community/styles/ag-theme-quartz.css';
 import 'ag-grid-enterprise';
 import { AgGridReact } from 'ag-grid-react';
 import React, { MutableRefObject, useEffect, useRef, useState } from 'react';
-import TestComponent from './TestComponent';
+import PaginationBar from './PaginationBar';
 
 
 // Row Data Interface
@@ -38,8 +38,8 @@ export const GridExample = () => {
     return {
       statusPanels: [
         {
-          statusPanel: TestComponent,
-          key: 'testComponentKey',
+          statusPanel: PaginationBar,
+          key: 'paginationBarKey',
           align: 'left',
         },
         { statusPanel: 'agTotalRowCountComponent' }, // Default status component
