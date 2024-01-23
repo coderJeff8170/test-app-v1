@@ -5,16 +5,14 @@ import { useEffect, useState } from "react";
 const TestComponent = (props: CustomStatusPanelProps) => {
 
   const [totalPages] = useState(props?.api?.paginationGetTotalPages());
+  const INITIAL_RANGE = [0, totalPages > 9 ? 9 : totalPages];
   const [currentPage, setCurrentPage] = useState(0);
-  const [currentRange, setCurrentRange] = useState([0, 9]);
+  const [currentRange, setCurrentRange] = useState(INITIAL_RANGE);
 
   const incrementRange = () => {
-    props.api.paginationGoToPage(currentRange[1]+1)
+    props.api.paginationGoToPage(currentRange[1] + 1);
     if (currentRange[1] === totalPages) {
-      setCurrentRange([
-        currentRange[0] + 10,
-        totalPages,
-      ]);
+      setCurrentRange([currentRange[0] + 10, totalPages]);
       return;
     }
     setCurrentRange([currentRange[0] + 10, currentRange[1] + 10]);
@@ -22,7 +20,7 @@ const TestComponent = (props: CustomStatusPanelProps) => {
 
   const decrementRange = () => {
     if (currentRange[0] === 1) return;
-    props.api.paginationGoToPage(currentRange[0]-1);
+    props.api.paginationGoToPage(currentRange[0] - 1);
     setCurrentRange([currentRange[0] - 10, currentRange[1] - 10]);
   };
 
@@ -32,15 +30,24 @@ const TestComponent = (props: CustomStatusPanelProps) => {
       return;
     }
     props.api.paginationGoToNextPage();
-  }
+  };
+
+  const goToLastPage = () => {
+    setCurrentRange([totalPages - (totalPages % 10), totalPages]);
+    props.api.paginationGoToLastPage();
+  };
+
+  const goToFirstPage = () => {
+    setCurrentRange(INITIAL_RANGE); 
+    props.api.paginationGoToFirstPage();
+  };
 
   const decrementPage = () => {
     props.api.paginationGoToPreviousPage();
-    if (currentPage === currentRange[0]) {
+    if (currentPage === currentRange[0] && currentRange[0] !== 0) {
       decrementRange();
     }
-    
-  }
+  };
 
   useEffect(() => {
     const onPaginationChanged = () => {
@@ -51,7 +58,6 @@ const TestComponent = (props: CustomStatusPanelProps) => {
   }, [props.api]);
 
   const renderItems = () => {
-    
     const items = [];
     for (let number = currentRange[0]; number <= currentRange[1]; number++) {
       if (number >= totalPages) break;
@@ -61,7 +67,7 @@ const TestComponent = (props: CustomStatusPanelProps) => {
           onClick={() => props.api.paginationGoToPage(number)}
           active={number === props.api.paginationGetCurrentPage()}
         >
-          {number+1}
+          {number + 1}
         </Pagination.Item>
       );
     }
@@ -81,11 +87,8 @@ const TestComponent = (props: CustomStatusPanelProps) => {
       }}
     >
       <Pagination style={{ margin: "0" }}>
-        {/* TODO: onGoToLastPage needs to set the original range */}
-        <Pagination.First onClick={() => props.api.paginationGoToFirstPage()} />
-        <Pagination.Prev
-          onClick={() => decrementPage()}
-        />
+        <Pagination.First onClick={() => goToFirstPage()} />
+        <Pagination.Prev onClick={() => decrementPage()} />
         {currentRange[1] > 10 && (
           <Pagination.Ellipsis onClick={decrementRange} />
         )}
@@ -94,8 +97,7 @@ const TestComponent = (props: CustomStatusPanelProps) => {
           <Pagination.Ellipsis onClick={incrementRange} />
         )}
         <Pagination.Next onClick={() => incrementPage()} />
-        {/* TODO: onGoToLastPage needs to set the correct range */}
-        <Pagination.Last onClick={() => props.api.paginationGoToLastPage()} />
+        <Pagination.Last onClick={() => goToLastPage()} />
       </Pagination>
     </div>
   );
