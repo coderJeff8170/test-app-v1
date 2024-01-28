@@ -1,13 +1,42 @@
 
 import { CustomStatusPanelProps } from "ag-grid-react";
+import { useEffect, useState } from "react";
 
 
 const PaginationRowSummary = (props: CustomStatusPanelProps) => {
-  console.log(props);
+
+  const getLastRecordOnPage = () => {
+    //TODO: if last page of records, return total records
+    return props.api.paginationGetPageSize() * (props.api.paginationGetCurrentPage()+1);
+  }
+
+  const getFirstRecordOnPage = () => {
+    return getLastRecordOnPage() - props.api.paginationGetPageSize() + 1;
+  }
+  const [pageSize, setPageSize] = useState(props.api.paginationGetPageSize());
+  const [totalRecords, setTotalRecords] = useState(props.api.getModel().getRowCount());
+  const [lastRecordOnPage, setLastRecordOnPage] = useState(getLastRecordOnPage());
+  const [firstRecordOnPage, setFirstRecordOnPage] = useState(getFirstRecordOnPage());
+
+
+
+  useEffect(() => {
+    const onPaginationChanged = () => {
+      setFirstRecordOnPage(getFirstRecordOnPage());
+      setLastRecordOnPage(getLastRecordOnPage());
+    };
+    props.api.addEventListener("paginationChanged", onPaginationChanged);
+  }, [props.api]);
+
+  //create a useEffect to listen for pagination changes
+
+
+  // const lastRecordOnPage = props.api.paginationGetPageSize() * props.api.paginationGetCurrentPage();
+  // const firstRecordOnPage = lastRecordOnPage - props.api.paginationGetPageSize() + 1;
 
   return (
     <div className={"pagination-text"}>
-      1 to 100 of 1375 Records
+      {firstRecordOnPage} to {lastRecordOnPage} of {totalRecords} Records
     </div>
     
   );

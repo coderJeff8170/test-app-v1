@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 const PaginationBar = (props: CustomStatusPanelProps) => {
 
+  //some of these might be needed in other status bar components. It might be worth it to move them to a common file (usePagination.tsx)
   const [totalPages] = useState(props?.api?.paginationGetTotalPages());
   const INITIAL_RANGE = [0, totalPages > 9 ? 9 : totalPages];
   const [currentPage, setCurrentPage] = useState(0);
