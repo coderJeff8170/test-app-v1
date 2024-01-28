@@ -8,4 +8,13 @@
 
 .ag-status-bar {
     overflow: visible;
+    padding: 10px;
+}
+
+.ag-status-bar-right {
+    gap: 10px;
+}
+
+.pagination-text {
+    padding: 10px 0;
 }

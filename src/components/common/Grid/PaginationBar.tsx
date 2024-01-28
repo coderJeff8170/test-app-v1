@@ -75,17 +75,7 @@ const PaginationBar = (props: CustomStatusPanelProps) => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        margin: 0,
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100%",
-        width: "100%",
-      }}
-    >
+    <div>
       <Pagination style={{ margin: "0" }}>
         <Pagination.First onClick={() => goToFirstPage()} />
         <Pagination.Prev onClick={() => decrementPage()} />

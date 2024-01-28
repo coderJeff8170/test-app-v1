@@ -6,7 +6,7 @@ const PaginationRowSummary = (props: CustomStatusPanelProps) => {
   console.log(props);
 
   return (
-    <div>
+    <div className={"pagination-text"}>
       1 to 100 of 1375 Records
     </div>
     
