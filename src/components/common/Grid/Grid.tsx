@@ -8,6 +8,8 @@ import PaginationBar from './PaginationBar';
 import PaginationPageSize from './PaginationPageSize';
 import PaginationRowSummary from './PaginationRowSummary';
 import PaginationPageSummary from './PaginationPageSummary';
+// import { TestComponent } from './TestComponent';
+import './Grid.css';
 
 
 // Row Data Interface
@@ -40,6 +42,11 @@ export const GridExample = () => {
   const statusBar = () => {
     return {
       statusPanels: [
+        // {
+        //   statusPanel: TestComponent,
+        //   key: 'testComponentKey',
+        //   align: 'left',
+        // },
         
         {
           statusPanel: PaginationBar,
@@ -84,6 +91,7 @@ export const GridExample = () => {
         rowData={rowData} 
         columnDefs={colDefs}
         statusBar={statusBar()}
+        // reactiveCustomComponents
       />
     </div>
   );
