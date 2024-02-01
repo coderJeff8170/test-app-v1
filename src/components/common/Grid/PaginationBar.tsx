@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 const PaginationBar = (props: CustomStatusPanelProps) => {
 
   //some of these might be needed in other status bar components. It might be worth it to move them to a common file (usePagination.tsx)
-  const [totalPages] = useState(props?.api?.paginationGetTotalPages());
+  const [totalPages, setTotalPages] = useState(props?.api?.paginationGetTotalPages());
   const INITIAL_RANGE = [0, totalPages > 9 ? 9 : totalPages];
   const [currentPage, setCurrentPage] = useState(0);
   const [currentRange, setCurrentRange] = useState(INITIAL_RANGE);
@@ -53,7 +53,9 @@ const PaginationBar = (props: CustomStatusPanelProps) => {
   useEffect(() => {
     const onPaginationChanged = () => {
       const currentPage = props.api.paginationGetCurrentPage();
+      const totalPages = props.api.paginationGetTotalPages();
       setCurrentPage(currentPage);
+      setTotalPages(totalPages);
     };
     props.api.addEventListener("paginationChanged", onPaginationChanged);
   }, [props.api]);

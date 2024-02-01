@@ -91,6 +91,7 @@ export const GridExample = () => {
         rowData={rowData} 
         columnDefs={colDefs}
         statusBar={statusBar()}
+        paginationPageSizeSelector={[5, 10, 25, 50, 100]}
         // reactiveCustomComponents
       />
     </div>
