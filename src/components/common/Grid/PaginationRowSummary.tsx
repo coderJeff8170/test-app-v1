@@ -28,7 +28,7 @@ const PaginationRowSummary = (props: CustomStatusPanelProps) => {
     props.api.addEventListener("paginationChanged", onPaginationChanged);
   }, [props.api]);
 
-  //create a useEffect to listen for pagination changes
+  //create a useEffect to listen for pagination changes - or better yet, move this to a custom hook
 
 
   // const lastRecordOnPage = props.api.paginationGetPageSize() * props.api.paginationGetCurrentPage();

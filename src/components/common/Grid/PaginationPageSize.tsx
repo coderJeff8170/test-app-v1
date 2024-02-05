@@ -1,11 +1,13 @@
 import { DropdownButton, Dropdown } from "react-bootstrap";
 import { CustomStatusPanelProps } from "ag-grid-react";
-import { useState } from "react";
+// import { useState } from "react";
+import { usePagination } from "./usePagination";
 
 
 const PaginationPageSize = (props: CustomStatusPanelProps) => {
-  console.log(props);
-  const [pageSize, setPageSize] = useState(props.api.paginationGetPageSize());
+
+  // const [pageSize, setPageSize] = useState(props.api.paginationGetPageSize());
+  const { pageSize, setPageSize } = usePagination(props.api);
 
   const onChange = (pageSize: number) => {
     setPageSize(pageSize);
