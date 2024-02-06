@@ -5,7 +5,7 @@ import { usePagination } from "./usePagination";
 
 
 const PaginationPageSize = (props: CustomStatusPanelProps) => {
-
+  // TODO: send us back to page 1 when we change the page size
   // const [pageSize, setPageSize] = useState(props.api.paginationGetPageSize());
   const { pageSize, setPageSize } = usePagination(props.api);
 
