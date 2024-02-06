@@ -1,64 +1,22 @@
 import { Pagination } from "react-bootstrap";
 import { CustomStatusPanelProps } from "ag-grid-react";
-import { useEffect, useState } from "react";
+import { usePagination } from "./usePagination";
 
+/**
+ * @param props the most important prop is the api, which is the ag-grid api.
+ * @returns a PaginationBar component that can be used in the ag-grid status bar to navigate through 10 pages of data at a time
+ */
 const PaginationBar = (props: CustomStatusPanelProps) => {
-
-  //some of these might be needed in other status bar components. It might be worth it to move them to a common file (usePagination.tsx)
-  const [totalPages, setTotalPages] = useState(props?.api?.paginationGetTotalPages());
-  const INITIAL_RANGE = [0, totalPages > 9 ? 9 : totalPages];
-  const [currentPage, setCurrentPage] = useState(0);
-  const [currentRange, setCurrentRange] = useState(INITIAL_RANGE);
-
-  const incrementRange = () => {
-    props.api.paginationGoToPage(currentRange[1] + 1);
-    if (currentRange[1] === totalPages) {
-      setCurrentRange([currentRange[0] + 10, totalPages]);
-      return;
-    }
-    setCurrentRange([currentRange[0] + 10, currentRange[1] + 10]);
-  };
-
-  const decrementRange = () => {
-    if (currentRange[0] === 1) return;
-    props.api.paginationGoToPage(currentRange[0] - 1);
-    setCurrentRange([currentRange[0] - 10, currentRange[1] - 10]);
-  };
-
-  const incrementPage = () => {
-    if (currentPage === currentRange[1]) {
-      incrementRange();
-      return;
-    }
-    props.api.paginationGoToNextPage();
-  };
-
-  const goToLastPage = () => {
-    setCurrentRange([totalPages - (totalPages % 10), totalPages]);
-    props.api.paginationGoToLastPage();
-  };
-
-  const goToFirstPage = () => {
-    setCurrentRange(INITIAL_RANGE); 
-    props.api.paginationGoToFirstPage();
-  };
-
-  const decrementPage = () => {
-    props.api.paginationGoToPreviousPage();
-    if (currentPage === currentRange[0] && currentRange[0] !== 0) {
-      decrementRange();
-    }
-  };
-
-  useEffect(() => {
-    const onPaginationChanged = () => {
-      const currentPage = props.api.paginationGetCurrentPage();
-      const totalPages = props.api.paginationGetTotalPages();
-      setCurrentPage(currentPage);
-      setTotalPages(totalPages);
-    };
-    props.api.addEventListener("paginationChanged", onPaginationChanged);
-  }, [props.api]);
+  const {
+    currentRange,
+    totalPages,
+    incrementRange,
+    decrementRange,
+    incrementPage,
+    goToLastPage,
+    goToFirstPage,
+    decrementPage,
+  } = usePagination(props.api);
 
   const renderItems = () => {
     const items = [];

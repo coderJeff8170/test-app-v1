@@ -1,9 +1,8 @@
-import { CustomStatusPanelProps } from 'ag-grid-react';
-import React from 'react';
+import { CustomStatusPanelProps } from "ag-grid-react";
 
 export const TestComponent = (props: CustomStatusPanelProps) => {
   const onClick = () => {
-    console.log('Page size: ' + props.api.getModel().getRowCount());
+    console.log("Page size: " + props.api.getModel().getRowCount());
     console.log(props.api);
   };
 
@@ -20,4 +19,4 @@ export const TestComponent = (props: CustomStatusPanelProps) => {
       value="Click Me For Selected Row Count"
     />
   );
-}
+};

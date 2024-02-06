@@ -5,7 +5,6 @@ import Col from "react-bootstrap/Col";
 import { GridExample } from "../components/common/Grid/Grid";
 
 export const GridPage: React.FC<unknown> = () => {
-
   return (
     <Container fluid>
       <Row>

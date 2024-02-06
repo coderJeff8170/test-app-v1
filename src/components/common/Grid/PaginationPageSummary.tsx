@@ -1,4 +1,3 @@
-
 import { CustomStatusPanelProps } from "ag-grid-react";
 import { usePagination } from "./usePagination";
 
@@ -9,7 +8,6 @@ const PaginationPageSummary = (props: CustomStatusPanelProps) => {
     <div className={"pagination-text"}>
       Page {currentPage} of {props.api.paginationGetTotalPages()}
     </div>
-    
   );
 };
 
