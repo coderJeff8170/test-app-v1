@@ -1,19 +1,9 @@
 
 import { CustomStatusPanelProps } from "ag-grid-react";
-import { useEffect, useState } from "react";
-
+import { usePagination } from "./usePagination";
 
 const PaginationPageSummary = (props: CustomStatusPanelProps) => {
-  const [currentPage, setCurrentPage] = useState(props.api.paginationGetCurrentPage()+1);
-  
-
-  //need to hoist this to grid level possibly and pipe the values to the status bar components
-  useEffect(() => {
-    const onPaginationChanged = () => {
-      setCurrentPage(props.api.paginationGetCurrentPage()+1);
-    };
-    props.api.addEventListener("paginationChanged", onPaginationChanged);
-  }, [props.api]);
+  const { currentPage } = usePagination(props.api);
 
   return (
     <div className={"pagination-text"}>
